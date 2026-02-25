@@ -6,6 +6,49 @@ struct node{
 };
 struct node* getNode();
 void display(struct node*);
+struct node* insert(struct node*);
+struct node* insert(struct node * head)
+{
+    int ch;
+    struct node *newnode,*temp;
+    if(head!=NULL)
+    {
+        newnode =getNode();
+        printf("enter New node value");
+        scanf("%d",&newnode->data);
+        printf("\n1.Begning\n2.Ending\n3.position");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:
+                    newnode->next=head;
+                    head=newnode;
+                    break;
+            case 2:
+                    temp=head;
+                    while (temp->next!=NULL)
+                    {
+                        temp=temp->next;
+                    }
+                    temp->next=newnode;
+                    
+                    
+                    break;
+            case 3:
+                    printf("Position");
+                    break;
+            default:
+                    printf("Invalid choice");
+                    break;
+
+        }
+    }
+    else
+    {
+        printf("List is empty");
+    }
+    return head;
+}
 void display(struct node *head)
 {
     struct node *temp;
@@ -45,12 +88,42 @@ struct node* createList()
     scanf("%d",&newnode->data);
   }
 
-  return first;
+  return head->next;
 
 }
 int main()
 {
-    struct node *head;
-    head=createList();
-    display(head);
+    struct node *head=NULL;
+    // 
+    // 
+    int ch;
+
+    while (1)
+    {
+        printf("\n1.Create\n2.Insert\n3.Delete\n4.Display\n5.Exit");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:
+                   head=createList();
+                   break;
+            case 2:
+                    head=insert(head);
+                    break;
+            case 3:
+                    printf("==Delete==");
+                    break;
+            case 4:
+                    display(head);
+                    break;
+            case 5:
+                    exit(0);
+                    break;
+            default :
+                    printf("==Invalid option==");
+                    break;
+        }
+       
+    }
+    
 }
