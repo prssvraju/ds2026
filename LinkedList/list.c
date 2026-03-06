@@ -11,6 +11,7 @@ struct node* insert(struct node * head)
 {
     int ch;
     struct node *newnode,*temp;
+    int i,pos;
     if(head!=NULL)
     {
         newnode =getNode();
@@ -35,7 +36,23 @@ struct node* insert(struct node * head)
                     
                     break;
             case 3:
-                    printf("Position");
+                    temp=head;
+                    printf("Enter position");
+                    scanf("%d",&pos);
+                    if(pos ==1)
+                    {
+                        newnode->next=head;
+                        head=newnode;
+                    }
+                    else
+                    {
+                        for(i=1;i<pos-1;i++)
+                        {
+                            temp=temp->next;
+                        }
+                        newnode->next=temp->next;
+                        temp->next=newnode;
+                    }
                     break;
             default:
                     printf("Invalid choice");
@@ -67,6 +84,58 @@ struct node* getNode()
     newnode->next=NULL;
     return newnode;
 }
+struct node *delete(struct node*);
+struct node *delete(struct node* head)
+{
+  struct node *temp;
+    int ch,pos,i;
+    if(head==NULL)
+    {
+        printf("No element to delete");
+    }
+    else{
+        temp=head;
+        printf("\n1.Deletion at Begning\n2.Deletion at Ending\n3.Deletion at position");
+        scanf("%d",&ch);
+        switch (ch)
+        {
+        case 1 :
+                printf("Element delete is %d",temp->data);
+                head=head->next;
+                temp->next=NULL;
+            break;
+        case 2:
+             while(temp->next->next!=NULL)
+             {
+                temp=temp->next;
+             }
+             temp->next=NULL;
+            break;
+        case 3:  
+            printf("Enter position");
+            scanf("%d",&pos);
+                    if(pos ==1)
+                    {
+                        head=head->next;
+                        temp->next=NULL;
+                    }
+                    else
+                    {
+                        for(i=1;i<pos-1;i++)
+                        {
+                            temp=temp->next;
+                        }
+                        temp->next=temp->next->next;
+                    }
+            break;
+        default:
+            break;
+        }
+
+    }
+    return head;
+}
+
 
 struct node* createList();
 
@@ -111,7 +180,7 @@ int main()
                     head=insert(head);
                     break;
             case 3:
-                    printf("==Delete==");
+                   head=delete(head);
                     break;
             case 4:
                     display(head);
