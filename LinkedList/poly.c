@@ -47,7 +47,7 @@ struct node * insert(struct node *phead,int cof, int exp)
     else
     {
         temp=phead;
-        while(temp->next!=NULL||exp<temp->exp)
+        while(temp->next!=NULL||exp>temp->exp)
         {
             temp=temp->next;
         }
