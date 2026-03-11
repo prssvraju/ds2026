@@ -9,6 +9,7 @@ struct node* insert(struct node*,int,int);
 struct node*getNode();
 struct node* create();
 void display(struct node *);
+struct node* add(struct node*,struct node*);
 struct node *getNode()
 {
     struct node *newnode;
@@ -66,6 +67,40 @@ void display(struct node *phead)
         temp=temp->next;
     }
 
+}
+struct node * add(struct node *ph1,struct node *ph2)
+{
+    struct node *ph3=NULL;
+    while(ph1!=NULL && ph2!=NULL)
+    {
+        if(ph1->exp>ph2->exp)
+        {
+            ph3=insert(ph3,ph1->cof,ph1->exp);
+            ph1=ph1->next;
+        }
+        else if(ph1->exp<ph2->exp)  
+        {
+            ph3=insert(ph3,ph2->cof,ph2->exp);
+            ph2= ph2->next;
+        }
+        else
+        {
+            ph3=insert(ph3,ph1->cof+ph2->cof,ph1->exp);
+            ph1=ph1->next;
+            ph2=ph2->next;
+        }
+    }
+    while(ph1!=NULL)
+    {
+        ph3=insert(ph3,ph1->cof,ph1->exp);
+        ph1=ph1->next;
+    }
+    while(ph2!=NULL)
+    {
+        ph3=insert(ph3,ph2->cof,ph2->exp);
+        ph2=ph2->next;
+    }
+    return ph3;
 }
 int main()
 {
