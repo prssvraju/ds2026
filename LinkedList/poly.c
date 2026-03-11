@@ -8,6 +8,7 @@ struct node
 struct node* insert(struct node*,int,int);
 struct node*getNode();
 struct node* create();
+struct node* add(struct node*,struct node *);
 void display(struct node *);
 struct node *getNode()
 {
@@ -25,7 +26,7 @@ struct node* create()
     struct node *phead=NULL;
     printf("Enter num of terms");
     scanf("%d",&n);
-    for(i=0;i<=n;i++)
+    for(i=0;i<n;i++)
     {
         printf("Enter %d tem cof and exp",i+1);
         scanf("%d%d",&cof,&exp);
@@ -47,7 +48,7 @@ struct node * insert(struct node *phead,int cof, int exp)
     else
     {
         temp=phead;
-        while(temp->next!=NULL||exp<temp->exp)
+        while(temp->next!=NULL&&exp<temp->exp)
         {
             temp=temp->next;
         }
@@ -67,9 +68,54 @@ void display(struct node *phead)
     }
 
 }
+struct  node * add(struct node *ph1,struct node *ph2)
+{
+    struct node *ph3;
+    while(ph1!=NULL && ph2!=NULL)
+    {
+        if(ph1->exp==ph2->exp)
+        {
+            ph3=insert(ph3,ph1->cof+ph2->cof,ph1->exp);
+            ph1=ph1->next;
+            ph2=ph2->next;
+        }
+        else if(ph1->exp>ph2->exp)
+        {
+            ph3=insert(ph3,ph1->cof,ph1->exp);
+            ph1=ph1->next;
+        }
+        else if(ph1->exp<ph2->exp)
+        {
+            ph3=insert(ph3,ph2->cof,ph2->exp);
+            ph2=ph2->next;
+        }
+    }
+    while(ph1!=NULL)
+    {
+        ph3=insert(ph3,ph1->cof,ph1->exp);
+        ph1=ph1->next;
+    }
+    while(ph2!=NULL)
+    {
+        ph3=insert(ph3,ph2->cof,ph2->exp);
+        ph2=ph2->next;
+    }
+    return ph3;
+}
+
+
 int main()
 {
-    struct  node *phead;
-    phead=create();
-    display(phead);   
+    struct  node *ph1=NULL,*ph2=NULL,*ph3=NULL;
+    ph1=create(ph1);
+    ph2=create(ph2);
+    ph3=add(ph1,ph2);
+
+    printf("Display");
+    printf("\n");
+    display(ph1);
+    printf("\n");
+    display(ph2);
+    printf("\n Result Polynomial is \n");
+    display(ph3); 
 }
