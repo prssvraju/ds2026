@@ -18,6 +18,8 @@ struct node *getNode()
     newnode->exp=0;
     newnode->next=NULL;
     return newnode;
+
+    
 }
 
 struct node* create()
