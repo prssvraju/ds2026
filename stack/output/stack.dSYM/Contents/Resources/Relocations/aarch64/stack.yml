@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/pothuriraju/Documents/git/ds2026/stack/output/stack'
+relocations:     []
+...
