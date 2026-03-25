@@ -109,15 +109,17 @@ struct  node * add(struct node *ph1,struct node *ph2)
 int main()
 {
     struct  node *ph1=NULL,*ph2=NULL,*ph3=NULL;
-    ph1=create(ph1);
-    ph2=create(ph2);
-    ph3=add(ph1,ph2);
+    ph1=create();
+    ph2=create();
+    
 
     printf("Display");
     printf("\n");
     display(ph1);
     printf("\n");
     display(ph2);
+
+    ph3=add(ph1,ph2);
     printf("\n Result Polynomial is \n");
     display(ph3); 
 }
