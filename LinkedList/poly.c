@@ -10,6 +10,7 @@ struct node*getNode();
 struct node* create();
 struct node* add(struct node*,struct node *);
 void display(struct node *);
+struct node* add(struct node*,struct node*);
 struct node *getNode()
 {
     struct node *newnode;
@@ -70,25 +71,25 @@ void display(struct node *phead)
     }
 
 }
-struct  node * add(struct node *ph1,struct node *ph2)
+struct node * add(struct node *ph1,struct node *ph2)
 {
-    struct node *ph3;
+    struct node *ph3=NULL;
     while(ph1!=NULL && ph2!=NULL)
     {
-        if(ph1->exp==ph2->exp)
-        {
-            ph3=insert(ph3,ph1->cof+ph2->cof,ph1->exp);
-            ph1=ph1->next;
-            ph2=ph2->next;
-        }
-        else if(ph1->exp>ph2->exp)
+        if(ph1->exp>ph2->exp)
         {
             ph3=insert(ph3,ph1->cof,ph1->exp);
             ph1=ph1->next;
         }
-        else if(ph1->exp<ph2->exp)
+        else if(ph1->exp<ph2->exp)  
         {
             ph3=insert(ph3,ph2->cof,ph2->exp);
+            ph2= ph2->next;
+        }
+        else
+        {
+            ph3=insert(ph3,ph1->cof+ph2->cof,ph1->exp);
+            ph1=ph1->next;
             ph2=ph2->next;
         }
     }
@@ -104,22 +105,28 @@ struct  node * add(struct node *ph1,struct node *ph2)
     }
     return ph3;
 }
-
-
 int main()
 {
     struct  node *ph1=NULL,*ph2=NULL,*ph3=NULL;
     ph1=create();
     ph2=create();
+<<<<<<< HEAD
     
 
+=======
+>>>>>>> d76215c98324d224670bb40898ab5fdad6b0ba79
     printf("Display");
     printf("\n");
     display(ph1);
     printf("\n");
     display(ph2);
 
+<<<<<<< HEAD
     ph3=add(ph1,ph2);
     printf("\n Result Polynomial is \n");
+=======
+    printf("\n Result Polynomial is");
+    ph3=add(ph1,ph2);
+>>>>>>> d76215c98324d224670bb40898ab5fdad6b0ba79
     display(ph3); 
 }
