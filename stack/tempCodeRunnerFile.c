@@ -1,1 +1,1 @@
- return;
+ st->top = st->top->next;
