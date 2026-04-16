@@ -1,1 +1,1 @@
- st->top = st->top->next;
+#include<stdlib.h>
