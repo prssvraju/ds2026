@@ -1,147 +1,139 @@
 #include<stdio.h>
-#define MAX 10
-struct queue
+#include<stdlib.h>
+#define MAX 4
+struct  queue
 {
     int items[MAX];
-    int rear,front;
+    int front,rear;
 };
-void insert(struct queue*,int);
+void enqueue(struct queue*,int);
+void dequeue(struct queue*);
+//int peek(struct queue*);
 void display(struct queue*);
-int delete(struct queue*);
-int peek(struct queue*);
-int empty(struct queue*);
-
-
-void main()
+int main()
 {
-    struct queue q;
-    q.rear = -1;
-    q.front = 0;
-    int ch,element;
-    while (1)
+    int i;
+    int ch,ele;
+    struct queue qu;
+    qu.front=-1;
+    qu.rear = -1;
+    while(1)
     {
         printf("\n1.insert/enqueue");
         printf("\n2.delete/Dequeue");
         printf("\n3.Display");
         printf("\n4.peek");
-        printf("\n5.Check Stack Is empty");
+        printf("\n5.Check queue Is empty");
         printf("\n6.Exit");
-        printf("\n\nEnter your Choice :");
+        printf("Enter choice");
         scanf("%d",&ch);
         switch (ch)
         {
         case 1:
-            printf("Enter element");
-            scanf("%d",&element);
-            insert(&q,element);
+            printf("Enter element to insert");
+            scanf("%d",&ele);
+            enqueue(&qu,ele);
             break;
         case 2:
-            element = delete(&q);
-            if(element == -1)
-            {
-                printf("Queue is empty");
-            }
-            else
-            {
-                printf("%d is removed",element);
-            }
+            dequeue(&qu);
             break;
         case 3:
-            display(&q);
+            display(&qu);
             break;
         case 4:
-            element = peek(&q);
-            if(element == -1)
-            {
-                printf("Queue is empty");
-            }
-            else
-            {
-                printf("%d is first element",element);
-            }
+            printf("Peek");
+            //peek(&qu);
             break;
         case 5:
-            element = empty(&q);
-            if(element == 0)
-            {
-                printf("Queue is empty");
-            }
-            else
-            {
-                printf("Queue contain elements");
-            }
-            
-            break;            
+            printf("Empty");
+            break;
         case 6:
             exit(0);
             break;
         default:
-            printf("invalid choice");
             break;
         }
     }
-    
-}
-void insert(struct queue *qu,int el)
-{
-    if(qu->rear == MAX-1)
-    {
-        printf("queue is full");
-    }
-    else
-    {
-        qu->rear =qu->rear +1;
-        qu->items[qu->rear] = el;
-        printf("Element inserted %d",el);
-    }
-}
-void display(struct queue *qu)
-{
-    int i;
-
-    for(i=qu->front;i<=qu->rear;i++)
-    {
-        printf("\n%d indexed value is |%d|",i,qu->items[i]);
-    }
+  
+    return 0;
 }
 
-int delete(struct queue *qu)
+void enqueue(struct queue *qu,int element)
 {
-    int el;
-    if(qu->rear<qu->front)
+    if((qu->front==0 && qu->rear==MAX-1)||(qu->front==qu->rear+1))
     {
-        return -1;
+        printf("Queue is full");
+        return;
+    }
+    if(qu->front == -1)
+    {
+        qu->front = 0;
+        qu->rear =0;
     }
     else
     {
-        el = qu->items[qu->front];
-        qu->front = qu->front+1;
-        return el;
+        if(qu->rear == MAX-1)
+        {
+            qu->rear = 0;
+        }
+        else
+        {
+            qu->rear = qu->rear+1;
+        }
     }
-}
-int peek(struct queue *qu)
-{
-    int el;
-    if(qu->rear<qu->front)
-    {
-        return -1;
-    }
-    else
-    {
-        el = qu->items[qu->front];
-        return el;
-    }
+    qu->items[qu->rear]=element;
 }
 
-int empty(struct queue *qu)
+void dequeue(struct queue *qu)
 {
-    int el;
-    if(qu->rear<qu->front)
+    int element;
+    if(qu->front == -1)
     {
-        return 0;
+      printf("Queue is under flow");   
+      return;
+    }
+    element = qu->items[qu->front];
+    printf("element remove is %d",element);
+    if(qu->front==qu->rear)
+	{
+		qu->front=-1;
+		qu->rear=-1;
+	}
+	else
+	{
+		if(qu->front == MAX-1)
+			qu->front=0;
+		else
+			qu->front++;
+	}
+	printf("Element Removed is %d",element);   
+}
+void display(struct queue *cqu)
+{
+      int i;
+    if(cqu->front == -1)
+    {
+        printf("Circle queue is empty");
     }
     else
     {
-        return 1;
+        if(cqu->front <= cqu->rear)
+        {
+            for(i=cqu->front;i<=cqu->rear;i++)
+            {
+                printf("\n%d indexed element is |%d|",i,cqu->items[i]);
+            }
+        }
+        else
+        {
+            for(i=cqu->front;i<=MAX-1;i++)
+            {
+                printf("\n%d indexed element is |%d|",i,cqu->items[i]);
+            }
+            for(i=0;i<=cqu->rear;i++)
+            {
+                printf("\n%d indexed element is |%d|",i,cqu->items[i]);
+            }
+        }
     }
 }
