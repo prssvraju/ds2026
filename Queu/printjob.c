@@ -63,6 +63,7 @@ void displayQueue() {
 int main() {
     int choice, pages;
     char docName[100];
+    
 
     while (1) {
         printf("\nPrinter Queue Menu:\n");
